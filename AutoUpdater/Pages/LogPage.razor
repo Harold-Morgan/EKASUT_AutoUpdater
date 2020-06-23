@@ -1,0 +1,17 @@
+﻿@page "/LogPage"
+@using AutoUpdater.Logic;
+
+<h1>Логи Автоапдейтера</h1>
+
+<ul>
+    @foreach (var str in logText)
+    {
+        <li>@str</li>
+    }
+</ul>
+
+
+@code {
+    private string[] logText = LogsLogic.GetErrorLogs();
+
+}
