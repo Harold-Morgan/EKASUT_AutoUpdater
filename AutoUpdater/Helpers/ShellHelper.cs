@@ -9,24 +9,36 @@ namespace AutoUpdater
 {
     public static class ShellHelper
     {
-        public static int ExecuteShellScript(string filePath)
+        public static Task<int> ExecuteShellScript(string filePath)
         {
+            var tcs = new TaskCompletionSource<int>();
+
             if (filePath == null)
                 filePath = "/home/user/src/update_ekasut.sh";
 
             FileInfo fileInfo = new FileInfo(filePath);
+
             ProcessStartInfo startInfo = new ProcessStartInfo();
             startInfo.CreateNoWindow = false;
             startInfo.UseShellExecute = true;
             startInfo.FileName = "/bin/bash";
             startInfo.Arguments = $"\"{fileInfo.FullName}\"";
-            Process process = Process.Start(startInfo);
 
-            //TODO: Это скорее бойлерплейт, так как этому всему очень нужен async, без него никуды.
-            process.WaitForExit();
+            var process = new Process
+            {
+                StartInfo = startInfo,
+                EnableRaisingEvents = true
+            };
 
+            process.Exited += (sender, args) =>
+            {
+                tcs.SetResult(process.ExitCode);
+                process.Dispose();
+            };
 
-            return process.ExitCode;
+            process.Start();
+
+            return tcs.Task;
         }
     }
 }
