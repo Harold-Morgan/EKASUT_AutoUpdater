@@ -22,6 +22,10 @@ namespace AutoUpdater
             startInfo.Arguments = $"\"{fileInfo.FullName}\"";
             Process process = Process.Start(startInfo);
 
+            //TODO: Это скорее бойлерплейт, так как этому всему очень нужен async, без него никуды.
+            process.WaitForExit();
+
+
             return process.ExitCode;
         }
     }
