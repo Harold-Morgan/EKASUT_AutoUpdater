@@ -19,7 +19,7 @@ namespace AutoUpdater.Controllers
         }
 
         [HttpGet("a")]
-        public object a()
+        public object A()
         {
             Log.Information("aaa");
 

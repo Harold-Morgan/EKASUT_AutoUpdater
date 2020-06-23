@@ -24,7 +24,7 @@ namespace AutoUpdater
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             CultureInfo.CurrentCulture = new CultureInfo("ru-RU");
 
-            var sink = new LogsLogic.InMemorySink();
+            var sink = new InMemorySink();
 
             var loggerConfiguration = new LoggerConfiguration()
                 .MinimumLevel.Information()
