@@ -11,7 +11,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Serilog;
 using Serilog.Core;
+using Serilog.Events;
 
 namespace AutoUpdater
 {
@@ -28,9 +30,24 @@ namespace AutoUpdater
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var sink = new InMemorySink();
+
+            var loggerConfiguration = new LoggerConfiguration()
+                .MinimumLevel.Information()
+                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+                .MinimumLevel.Override("System", LogEventLevel.Warning)
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .WriteTo.File("auto_updater.log", LogEventLevel.Information)
+                .WriteTo.Sink(sink);
+
+            Log.Logger = loggerConfiguration.CreateLogger();
+
+
+
             services.AddRazorPages();
             services.AddServerSideBlazor();
-            services.AddSingleton<InMemorySink>(new InMemorySink());
+            services.AddSingleton<InMemorySink>(sink);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

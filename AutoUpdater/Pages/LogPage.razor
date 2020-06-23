@@ -1,10 +1,12 @@
 ﻿@page "/LogPage"
 @using AutoUpdater.Logic;
+@using Microsoft.Extensions.DependencyInjection;
+@inherits OwningComponentBase
 
 <h1>Логи Автоапдейтера</h1>
 
 <ul>
-    @foreach (var str in logText)
+    @foreach (var str in memorySink)
     {
         <li>@str</li>
     }
@@ -12,6 +14,15 @@
 
 
 @code {
-    private string[] logText = LogsLogic.GetErrorLogs();
+
+    private string[] memorySink { get; set; }
+
+    protected override void OnInitialized()
+    {
+        memorySink = ScopedServices.GetRequiredService<InMemorySink>().Events.ToArray();
+    }
+
+    //string[] logText = memorySink //LogsLogic.GetErrorLogs();
+
 
 }

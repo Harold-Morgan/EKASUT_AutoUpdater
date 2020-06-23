@@ -24,18 +24,7 @@ namespace AutoUpdater
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             CultureInfo.CurrentCulture = new CultureInfo("ru-RU");
 
-            var sink = new InMemorySink();
-
-            var loggerConfiguration = new LoggerConfiguration()
-                .MinimumLevel.Information()
-                .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-                .MinimumLevel.Override("System", LogEventLevel.Warning)
-                .Enrich.FromLogContext()
-                .WriteTo.Console()
-                .WriteTo.File("auto_updater.log", LogEventLevel.Information)
-                .WriteTo.Sink(sink);
-
-            Log.Logger = loggerConfiguration.CreateLogger();
+            //Serilog конфигурируется в STARTUP
 
             CreateHostBuilder(args).Build().Run();
         }

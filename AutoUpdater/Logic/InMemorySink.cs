@@ -1,4 +1,5 @@
-﻿using Serilog.Core;
+﻿using Microsoft.AspNetCore.Components;
+using Serilog.Core;
 using Serilog.Events;
 using Serilog.Formatting;
 using Serilog.Formatting.Display;
@@ -12,6 +13,7 @@ namespace AutoUpdater.Logic
     {
         readonly ITextFormatter _textFormatter = new MessageTemplateTextFormatter("{Timestamp} [{Level}] {Message}{Exception}");
 
+        [Inject]
         public ConcurrentQueue<string> Events { get; } = new ConcurrentQueue<string>();
 
         public void Emit(LogEvent logEvent)
