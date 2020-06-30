@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AutoUpdater.Controllers
 {
-    [Route("api/build")]
+    [Route("autoupdater/build")]
     public class BuildController : Controller
     {
         [HttpPost("ekasut")]
