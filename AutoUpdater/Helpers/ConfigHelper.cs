@@ -21,6 +21,7 @@ namespace AutoUpdater.Helpers
         public string AllowedHosts { get; set; }
         public string EkasutFilePath { get; set; }
         public string DbsyncFilePath { get; set; }
+        public string ListenUrl { get; set; } = "http://0.0.0.0:5253";
     }
 
 }

@@ -36,7 +36,7 @@ namespace AutoUpdater
                 {
                     webBuilder.UseStartup<Startup>();
                     webBuilder.UseConfiguration(ConfigHelper.Instance.Configuration);
-                    webBuilder.UseUrls("http://*:5253");
+                    webBuilder.UseUrls(ConfigHelper.Instance.ListenUrl);
                 });
     }
 }
