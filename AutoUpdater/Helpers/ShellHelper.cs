@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -35,6 +36,8 @@ namespace AutoUpdater
                 tcs.SetResult(process.ExitCode);
                 process.Dispose();
             };
+
+            Log.Information($"Process started");
 
             process.Start();
 

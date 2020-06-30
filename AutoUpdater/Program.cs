@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoUpdater.Helpers;
 using AutoUpdater.Logic;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,7 @@ namespace AutoUpdater
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseConfiguration(ConfigHelper.Instance.Configuration);
                     //webBuilder.UseUrls("http://localhost:5253");
                 });
     }

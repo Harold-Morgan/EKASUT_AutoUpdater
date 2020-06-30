@@ -1,7 +1,10 @@
-﻿using AutoUpdater.Models;
+﻿using AutoUpdater.Helpers;
+using AutoUpdater.Logic;
+using AutoUpdater.Models;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 using System;
+using System.Threading.Tasks;
 
 namespace AutoUpdater.Controllers
 {
@@ -9,13 +12,13 @@ namespace AutoUpdater.Controllers
     public class BuildController : Controller
     {
         [HttpPost("ekasut")]
-        public object Ekasut([FromBody] GitlabPushPost gitlabPushPost)
+        public async Task<object> EkasutAsync([FromBody] GitlabPushPost gitlabPushPost)
         {
-            Log.Information("POST RECIEVED");
-
             Log.Information($"User {gitlabPushPost.user_name} pushed something!");
 
-            return gitlabPushPost;
+            var result = BuildLogic.BuildEkasut();
+
+            return result;
         }
 
         [HttpGet("a")]
