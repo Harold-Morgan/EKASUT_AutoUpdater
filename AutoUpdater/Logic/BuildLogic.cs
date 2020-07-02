@@ -15,7 +15,18 @@ namespace AutoUpdater.Logic
 
             int result = await ShellHelper.ExecuteShellScript(ConfigHelper.Instance.EkasutFilePath);
 
-            Log.Information($"Process exited with code {result}");
+            Log.Information($"EKASUT update process exited with code {result}");
+
+            return result;
+        }
+
+        public static async Task<object> BuildDbsync()
+        {
+            Log.Information($"DBsync Build started");
+
+            int result = await ShellHelper.ExecuteShellScript(ConfigHelper.Instance.DbsyncFilePath);
+
+            Log.Information($"DBsync update process exited with code {result}");
 
             return result;
         }

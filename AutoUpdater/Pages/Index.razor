@@ -6,17 +6,31 @@
 
 What do you want to do?
 
-<br>
+<br />
 
 <button class="btn btn-primary" @onclick="UpdateEkasut">
     Update Ekasut
 </button>
+
+<br />
+<br />
+
+
+<button class="btn btn-primary" @onclick="UpdateDBsync">
+    Update DBsync
+</button>
+
 
 @code
 {
     public async Task UpdateEkasut()
     {
         await BuildLogic.BuildEkasut();
+    }
+
+    public async Task UpdateDBsync()
+    {
+        await BuildLogic.BuildDbsync();
     }
 }
 
