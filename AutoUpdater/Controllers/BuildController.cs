@@ -12,11 +12,21 @@ namespace AutoUpdater.Controllers
     public class BuildController : Controller
     {
         [HttpPost("ekasut")]
-        public async Task<object> EkasutAsync([FromBody] GitlabPushPost gitlabPushPost)
+        public async Task<object> UpdateEkasutAsync([FromBody] GitlabPushPost gitlabPushPost)
         {
             Log.Information($"User {gitlabPushPost.user_name} pushed something!");
 
-            var result = BuildLogic.BuildEkasut();
+            var result = await BuildLogic.BuildEkasut();
+
+            return result;
+        }
+
+        [HttpPost("dbsync")]
+        public async Task<object> UpdateDbsyncAsync([FromBody] GitlabPushPost gitlabPushPost)
+        {
+            Log.Information($"User {gitlabPushPost.user_name} pushed something!");
+
+            var result = await BuildLogic.BuildDbsync();
 
             return result;
         }
@@ -25,7 +35,6 @@ namespace AutoUpdater.Controllers
         public object A()
         {
             Log.Information("aaa");
-
 
             return "Hi";
         }
