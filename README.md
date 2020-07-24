@@ -1,2 +1,2 @@
 # EKASUT_AutoUpdater
-Local Tool for storing logs e.t.c.
+Local Tool for autoupdating projects, e.t.c
