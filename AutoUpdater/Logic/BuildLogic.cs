@@ -15,7 +15,10 @@ namespace AutoUpdater.Logic
 
             int result = await ShellHelper.ExecuteShellScript(ConfigHelper.Instance.EkasutFilePath);
 
-            Log.Information($"EKASUT update process exited with code {result}");
+            if (result == 0)
+                Log.Information($"EKASUT update process exited with code = {result}");
+            else
+                Log.Error($"EKASUT update process returned an error with code = {result}");
 
             return result;
         }
@@ -26,7 +29,10 @@ namespace AutoUpdater.Logic
 
             int result = await ShellHelper.ExecuteShellScript(ConfigHelper.Instance.DbsyncFilePath);
 
-            Log.Information($"DBsync update process exited with code {result}");
+            if (result == 0)
+                Log.Information($"DBsync update process exited with code = {result}");
+            else
+                Log.Error($"Dbsync update process returned an error with code = {result}");
 
             return result;
         }

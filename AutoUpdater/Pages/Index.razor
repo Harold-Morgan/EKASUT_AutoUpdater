@@ -1,36 +1,79 @@
 ﻿@page "/"
 @using AutoUpdater.Logic;
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+    .buttonload {
+        background-color: #4CAF50; /* Green background */
+        border: none; /* Remove borders */
+        color: white; /* White text */
+        padding: 12px 24px; /* Some padding */
+        font-size: 16px; /* Set a font-size */
+    }
+
+    /* Add a right margin to each icon */
+    .fa {
+        margin-left: -12px;
+        margin-right: 8px;
+    }
+</style>
 
 <h1>Hello.</h1>
 
 What do you want to do?
 
 <br />
-
-<button class="btn btn-primary" @onclick="UpdateEkasut">
-    Update Ekasut
-</button>
+@if (EKASUTUpdating)
+{
+    <button class="btn btn-primary" @onclick="UpdateEkasut">
+        <i class="fa fa-refresh fa-spin"></i>Updating Ekasut...
+    </button>
+}
+else
+{
+    <button class="btn btn-primary" @onclick="UpdateEkasut">
+        Update Ekasut
+    </button>
+}
 
 <br />
 <br />
 
+@if (DBsyncUpdating)
+{
+    <button class="btn btn-primary" @onclick="UpdateDBsync">
+        <i class="fa fa-refresh fa-spin"></i>Updating DBsync...
+    </button>
+}
 
-<button class="btn btn-primary" @onclick="UpdateDBsync">
-    Update DBsync
-</button>
-
+else
+{
+    <button class="btn btn-primary" @onclick="UpdateDBsync">
+        Update DBsync
+    </button>
+}
 
 @code
 {
+    protected bool EKASUTUpdating { get; set; }
+    protected bool DBsyncUpdating { get; set; }
+
     public async Task UpdateEkasut()
     {
+        EKASUTUpdating = true;
+        StateHasChanged();
         await BuildLogic.BuildEkasut();
+        EKASUTUpdating = false;
+        StateHasChanged();
     }
 
     public async Task UpdateDBsync()
     {
+        DBsyncUpdating = true;
+        StateHasChanged();
         await BuildLogic.BuildDbsync();
+        DBsyncUpdating = false;
+        StateHasChanged();
     }
 }
 
