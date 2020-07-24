@@ -14,7 +14,7 @@ namespace AutoUpdater.Controllers
         [HttpPost("ekasut")]
         public async Task<object> UpdateEkasutAsync([FromBody] GitlabPushPost gitlabPushPost)
         {
-            Log.Information($"User {gitlabPushPost.user_name} pushed something to {gitlabPushPost.repository.name}!");
+            Log.Information($"User {gitlabPushPost.user_name} pushed something to {gitlabPushPost.repository.name}! Commit Info: {gitlabPushPost.after}");
 
             var result = await BuildLogic.BuildEkasut();
 
@@ -24,7 +24,7 @@ namespace AutoUpdater.Controllers
         [HttpPost("dbsync")]
         public async Task<object> UpdateDbsyncAsync([FromBody] GitlabPushPost gitlabPushPost)
         {
-            Log.Information($"User {gitlabPushPost.user_name} pushed something to {gitlabPushPost.repository.name}!");
+            Log.Information($"User {gitlabPushPost.user_name} pushed something to {gitlabPushPost.repository.name}! Commit Info: {gitlabPushPost.after}");
 
             var result = await BuildLogic.BuildDbsync();
 
