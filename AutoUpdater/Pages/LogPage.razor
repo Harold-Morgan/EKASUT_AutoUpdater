@@ -5,8 +5,14 @@
 
 <h1>Логи Автоапдейтера</h1>
 
+<br />
+<button class="btn btn-primary" @onclick="Clear">
+    Clear logs
+</button>
+<br />
+
 <ul>
-    @foreach (var str in memorySink)
+    @foreach (var str in LogEvents)
     {
         <li>@str</li>
     }
@@ -15,12 +21,20 @@
 
 @code {
 
-    private string[] memorySink { get; set; }
+    private List<string> LogEvents { get; set; }
+    private InMemorySink memorySink { get; set; }
 
     protected override void OnInitialized()
     {
-        memorySink = ScopedServices.GetRequiredService<InMemorySink>().Events.ToArray();
+        memorySink = ScopedServices.GetRequiredService<InMemorySink>();
+        LogEvents = memorySink.Events.ToList();
     }
 
 
+    protected async Task Clear()
+    {
+        memorySink.Clear();
+        LogEvents.Clear();
+        this.StateHasChanged();
+    }
 }

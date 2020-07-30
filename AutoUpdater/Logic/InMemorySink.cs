@@ -23,5 +23,10 @@ namespace AutoUpdater.Logic
             _textFormatter.Format(logEvent, renderSpace);
             Events.Enqueue(renderSpace.ToString());
         }
+
+        public void Clear()
+        {
+            Events.Clear();
+        }
     }
 }
