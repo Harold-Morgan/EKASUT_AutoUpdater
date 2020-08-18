@@ -1,18 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using AutoUpdater.Logic;
+using CurrieTechnologies.Razor.Clipboard;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using Serilog.Core;
 using Serilog.Events;
 
 namespace AutoUpdater
@@ -43,11 +36,11 @@ namespace AutoUpdater
 
             Log.Logger = loggerConfiguration.CreateLogger();
 
-
-
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddSingleton<InMemorySink>(sink);
+
+            services.AddClipboard();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

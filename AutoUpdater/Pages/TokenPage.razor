@@ -1,5 +1,7 @@
 ﻿@page "/TokenPage"
 @using AutoUpdater.Helpers;
+@using CurrieTechnologies.Razor.Clipboard;
+@inject ClipboardService clipboard
 
 <h3>Текущий dev-токен</h3>
 
@@ -9,6 +11,7 @@
 
 <br />
 
+<button class="btn btn-primary" @onclick="(async e => await clipboard.WriteTextAsync(CurrentToken))">Copy To Clipboard</button>
 
 
 @code {
