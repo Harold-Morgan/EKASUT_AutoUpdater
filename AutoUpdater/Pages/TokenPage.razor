@@ -1,0 +1,16 @@
+﻿@page "/TokenPage"
+@using AutoUpdater.Helpers;
+
+<h3>Текущий dev-токен</h3>
+
+<div style=" word-wrap:break-word; width: 600px">
+    @CurrentToken
+</div>
+
+<br />
+
+
+
+@code {
+    private string CurrentToken = EkasutJWTHelper.CreateToken(new Models.EkasutUserAcess() { UserId = 0 });
+}
